@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: crudpeliculas
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      - minio
+    environment:
+      MONGO_URI: "mongodb://root:123456@mongodb:27017/Test?authSource=admin"  
+      # Nota: Después de @, se coloca el nombre del servicio (en este caso @mongodb),
+      # para que internamente Docker lo resuelva y conecte.      
+      MINIO_ENDPOINT: "http://minio:9000"      
+    restart: always
+    networks:
+      - app-network
+
+  mongodb:
+    container_name: db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_DATABASE: Test
+    #volumes:
+    #  - mongo-data:/data/db  # Persistencia de datos
+    #  - ./mongo-init:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio_fesa
+    ports:
+      - "9000:9000"  # puerto para API S3
+      - "9001:9001"  # puerto para consola web
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  minio-data:
