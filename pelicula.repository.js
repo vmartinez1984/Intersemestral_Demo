@@ -25,6 +25,11 @@ async function obtenerTodos() {
   return resultado;
 }
 
+/**
+ * Obitne pelicula por el id
+ * @param {number} id 
+ * @returns pelicula
+ */
 async function obtenerPorId(id) {
   const collection = await getCollectionAsync();
   const pelicula = await collection.findOne({ id: Number(id) });

@@ -17,6 +17,8 @@ app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
 });
+// fin de Middlewares
+
 //funciones auxiliares
 function generarGuid() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
@@ -46,7 +48,11 @@ function obtenerExtension(mimetype) {
       return ".png";
   }
 }
+// fin de funciones auxiliares
 
+/**
+ * Verificación de que esta en linea el servicio
+ */
 app.get("/", (req, res) => {
   res.json(
     {
@@ -58,6 +64,14 @@ app.get("/", (req, res) => {
 
 /**
  * Obtener todas las peliculas
+ * @returns peliculas = [
+ * {
+ *  id: number
+ *  titulo: string
+ *  resumen: string
+ *  visto: true
+ * }
+ * ]
  */
 app.get("/api/peliculas", async (req, res) => {
   const peliculas = await obtenerTodos();
@@ -69,6 +83,13 @@ app.get("/api/peliculas", async (req, res) => {
 
 /**
  * Obtner pelicula por id
+ * @param {number} id
+ * @returns pelicula ={
+ *  id: number
+ *  titulo: string
+ *  resumen: string
+ *  visto: true
+ * }
  */
 app.get("/api/peliculas/:id", async (req, res) => {
   //console.log(req.params.id)
@@ -80,6 +101,9 @@ app.get("/api/peliculas/:id", async (req, res) => {
   return res.status(200).json(pelicula);
 });
 
+/**
+ * Obtener poster de la pelicula por id
+ */
 app.get("/api/peliculas/:id/posters", async (req, res) => {
   //console.log(req.params.id)
   let pelicula = await obtenerPorId(req.params.id);
@@ -125,7 +149,12 @@ app.post("/api/peliculas/", async (req, res) => {
 });
 
 /**
- * Actualizar pelicula
+ * Actualizar pelicula 
+ * @param {number} id 
+ * @body { pelicula } 
+ * titulo: string
+ * resumen: string
+ * @returns { 202 }
  */
 app.put("/api/peliculas/:id", async (req, res) => {
   console.log(req.body);
@@ -142,7 +171,7 @@ app.put("/api/peliculas/:id", async (req, res) => {
 });
 
 /**
- * Marcar pelicula como vista
+ * Marcar pelicula como vista, enviando el id
  */
 app.put("/api/peliculas/:id/visto", async (req, res) => {
   let id = req.params.id;
@@ -153,7 +182,7 @@ app.put("/api/peliculas/:id/visto", async (req, res) => {
 });
 
 /**
- * Desmarcar pelicula como vista
+ * Desmarcar pelicula como vista, enviando el id
  */
 app.put("/api/peliculas/:id/novisto", async (req, res) => {
   let id = req.params.id;
