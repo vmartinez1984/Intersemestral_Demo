@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: .
-    container_name: crudpeliculas
+    container_name: api
     ports:
       - "3000:3000"
     depends_on:
@@ -36,7 +36,7 @@ services:
 
   minio:
     image: minio/minio:latest
-    container_name: minio_fesa
+    container_name: store
     ports:
       - "9000:9000"  # puerto para API S3
       - "9001:9001"  # puerto para consola web
@@ -54,7 +54,7 @@ services:
     build:
       context: ./angular  # Carpeta donde está tu proyecto Angular (ajústala según tu estructura)
       dockerfile: Dockerfile  # Por defecto, pero explícito si quieres
-    container_name: angular-app
+    container_name: front
     ports:
       - "7080:80"  # Expone el puerto 7080 para la app Angular
     depends_on:

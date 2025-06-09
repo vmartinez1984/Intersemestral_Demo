@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PeliculaService } from '../../services/pelicula.service';
 import { PeliculaDto, PeliculaDtoIn } from '../../interfaces/pelicula-dto';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import {
   FormBuilder,
   FormGroup,
@@ -26,8 +25,7 @@ export class EditarPeliculaComponent {
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private servicio: PeliculaService,
-    private sanitizer: DomSanitizer,
+    private servicio: PeliculaService,    
     private formBuilder: FormBuilder,
     private router: Router
   ) {
@@ -54,8 +52,7 @@ export class EditarPeliculaComponent {
           ],
         },
       ],
-      poster: [''],
-      trailer: [''],
+      poster: ['']
     });
   }
 
@@ -64,11 +61,9 @@ export class EditarPeliculaComponent {
       next: (data) => {
         this.pelicula = data;
         //this.trailer = data.trailer;
-        console.log(data);
-
+        //console.log(data);
         this.pelicula.poster =
           this.servicio.baseUrl + this.pelicula.id + '/posters';
-
         this.formGroup.patchValue({
           titulo: this.pelicula.titulo,
           resumen: this.pelicula.resumen,
@@ -89,6 +84,10 @@ export class EditarPeliculaComponent {
     });
   }
 
+  /**
+   * Cuando se elige el archivo este es convertido en base64 para poder previsualizar
+   * @param event 
+   */
   visualizarImagen(event: any) {
     if (event.target.files.length > 0) {
       if (event.target.files[0]) {
@@ -97,7 +96,6 @@ export class EditarPeliculaComponent {
           this.imagenEnBase64 = value + '';
         });
       }
-      //this.imagenEnBase64 = '';
     }
   }
 

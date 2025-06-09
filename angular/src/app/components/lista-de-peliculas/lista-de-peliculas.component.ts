@@ -17,13 +17,13 @@ export class ListaDePeliculasComponent {
   ) {
     this.obtenerTodo();
   }
-
+  
   obtenerTodo() {
     this.servicio.obtenerTodo().subscribe({
       next: (peliculas) => {
         console.log(peliculas)
         peliculas.forEach((item) => {        
-        item.poster = this.servicio.baseUrl + item.id + '/posters';
+        item.poster = this.servicio.baseUrl + item.id + '/posters?t='+ this.obtenerTimeStamp();
         });        
         this.peliculas = peliculas.filter(x=> x.visto == false)
       },
@@ -32,6 +32,14 @@ export class ListaDePeliculasComponent {
         alert('Valio pepino');
       },
     });
+  }
+
+  /**
+   * OBtiene el timeStamp, para que angular detecte que es una url diferente y sea forzado a cargar la imagen
+   * @returns timeStamp
+   */
+  obtenerTimeStamp() {
+    return new Date().getTime();
   }
 
   marcarComoVista(peliculaId: number){

@@ -162,8 +162,8 @@ app.put("/api/peliculas/:id", async (req, res) => {
   let pelicula = await obtenerPorId(id)
   pelicula.titulo= req.body.titulo
   pelicula.resumen = req.body.resumen
-  //Poster  
-  if (req.files.poster) {
+  //Verificación de existencia de poster  
+ if (req.files && req.files.poster) {
     await actualizarArchivoAsync(req.files.poster, pelicula.nombreDelArchivo)
   }
   await actualizar(id, pelicula);
