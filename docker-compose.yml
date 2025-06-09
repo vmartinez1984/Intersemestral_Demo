@@ -3,7 +3,7 @@ version: '3.9'
 services:
   app:
     build:
-      context: .
+      context: ./back
     container_name: api
     ports:
       - "3000:3000"
@@ -52,7 +52,7 @@ services:
 
   angular:
     build:
-      context: ./angular  # Carpeta donde está tu proyecto Angular (ajústala según tu estructura)
+      context: ./front  # Carpeta donde está tu proyecto Angular (el front)
       dockerfile: Dockerfile  # Por defecto, pero explícito si quieres
     container_name: front
     ports:
