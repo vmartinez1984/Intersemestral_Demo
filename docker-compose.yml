@@ -50,9 +50,23 @@ services:
     networks:
       - app-network
 
+  angular:
+    build:
+      context: ./angular  # Carpeta donde está tu proyecto Angular (ajústala según tu estructura)
+      dockerfile: Dockerfile  # Por defecto, pero explícito si quieres
+    container_name: angular-app
+    ports:
+      - "7080:80"  # Expone el puerto 7080 para la app Angular
+    depends_on:
+      - app  # Opcional: si tu app Angular necesita consumir la API Java
+    networks:
+      - app-network
+    restart: always
 networks:
   app-network:
     driver: bridge
 
 volumes:
   minio-data:
+
+# para ejecutar : docker-compose up

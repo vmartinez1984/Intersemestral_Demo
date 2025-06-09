@@ -1,0 +1,36 @@
+<div class="container">
+  <a [routerLink]="['/']">Regresar</a>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          @if(imagenEnBase64 == ''){
+          <img class="img-fluid" [src]="pelicula?.poster" />
+          }@else {
+          <img class="img-fluid" [src]="imagenEnBase64" />
+          }
+        </div>
+        <div class="col">
+          <form [formGroup]="formGroup" (ngSubmit)="guardar()">
+            <label class="form-label">Título</label>
+            <input class="form-control" formControlName="titulo" />
+
+            <label>Resumen</label>
+            <textarea class="form-control" formControlName="resumen" rows="7"></textarea>
+
+            <label>Poster</label>
+            <input class="form-control" type="file" formControlName="poster" (change)="visualizarImagen($event)" />
+
+            <br />
+            <input type="submit" class="btn btn-success" value="Guardar" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a [routerLink]="['/']">Regresar</a>
+  <!-- <a href="/">Regresar</a>
+  <a href="">Regresar</a>
+  <a [routerLink]="'/'">Regresar</a> -->
+</div>

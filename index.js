@@ -152,6 +152,17 @@ app.put("/api/peliculas/:id/visto", async (req, res) => {
   res.status(202).json();
 });
 
+/**
+ * Desmarcar pelicula como vista
+ */
+app.put("/api/peliculas/:id/novisto", async (req, res) => {
+  let id = req.params.id;
+  let pelicula = await obtenerPorId(id)
+  pelicula.visto = false
+  await actualizar(id, pelicula);
+  res.status(202).json();
+});
+
 app.listen(3000, () => {
   console.log("http://localhost:3000");
 });

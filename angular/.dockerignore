@@ -1,0 +1,45 @@
+# Node modules locales
+node_modules
+bower_components
+
+# Archivos temporales del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos y carpetas de Angular CLI
+.angular
+dist
+out-tsc
+
+# Configuración y entorno local
+.env
+.env.*.local
+*.iml
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Archivos de pruebas
+coverage
+test-results
+karma-*.html
+
+# Archivos de control de versiones
+.git
+.gitignore
+
+# Archivos de IDEs/editores
+.idea
+.vscode
+
+# Archivos de configuración de CI/CD
+*.yml
+*.yaml
+
+# Archivos generados por el sistema operativo (Linux/Mac/Windows)
+*.swp
+*.swo
+*.bak
+*.tmp

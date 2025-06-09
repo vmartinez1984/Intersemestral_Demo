@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="card mt-5">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+           <img class="img-fluid" [src]="imagenEnBase64"/>
+        </div>
+        <div class="col">
+          <form [formGroup]="formGroup" (ngSubmit)="guardar()">
+            <label class="form-label">Título</label>
+            <input class="form-control" formControlName="titulo" />
+
+            <label>Resumen</label>
+            <textarea class="form-control" formControlName="resumen"></textarea>
+
+            <label>Poster</label>
+            <input class="form-control" type="file" formControlName="poster" (change)="visualizarImagen($event)"/>
+            <br/>
+            <input type="submit" class="btn btn-success" value="Guardar" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
