@@ -13,9 +13,33 @@ Api
 
 Test
 
+## Diagrama
+```mermaid
+graph TD
+  A[Frontend: Angular] --> B[Backend: Node.js]
+  B --> C[MongoDB]
+  B --> D[MinIO]
+
+  subgraph Frontend
+    A
+  end
+
+  subgraph Backend
+    B
+  end
+
+  subgraph Base_de_datos
+    C
+  end
+
+  subgraph Almacenamiento
+    D
+  end
+```
+
 ## Descargue el repositorio y ejecute
 
-Previamente debe de tener instaldo docker
+Previamente debe de tener instalado docker
 
 ```
 docker-compose up
